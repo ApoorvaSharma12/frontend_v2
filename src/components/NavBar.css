@@ -1,0 +1,31 @@
+.header {
+  background-color: #FFFFFF; /* Set your desired background color */
+  padding: 10px 20px; /* Adjust padding as needed */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header img.logo {
+  width: 137px; /* Adjust the width as needed */
+  height: 28px;
+}
+
+.header li{
+  list-style: none;
+}
+.NavBar{
+  display: flex;
+  justify-content: space-between;
+}
+.NavBar a{
+  margin-right: 10px;
+}
+
+.NavBar a.active-link {
+  color: #DB252A;
+}
+
+.NavBar a:hover {
+  color: #960c14; /* Darker shade of red for hover effect */
+}

@@ -1,0 +1,19 @@
+.searchbar{
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #FDEDED;
+    margin-bottom: 2%;
+    width: 100%;
+    height: 13vh;
+    align-items: center;
+
+  }
+  .searchbar label{
+    margin: 0;
+  }
+  .searchbar input{
+    width: min-content;
+
+  }
