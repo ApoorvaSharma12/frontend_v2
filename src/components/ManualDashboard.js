@@ -1,3 +1,4 @@
+// Importing necessary dependencies and components
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CsvDownloadButton from 'react-json-to-csv';
@@ -23,7 +24,9 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import './ManualDashboard.css';
 
+// Functional component for ManualDashboard
 const ManualDashboard = () => {
+  // State variables for managing data and UI
   const [employeesData, setEmployeesData] = useState([]);
   const [searchEmployeeCode, setSearchEmployeeCode] = useState('');
   const [searchedEmployee, setSearchedEmployee] = useState(null);
@@ -36,42 +39,44 @@ const ManualDashboard = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-const[csv,setcsv]=useState([])
-useEffect(() => {
-  const fetchLocationOptions = async () => {
-    try {
-      const response = await axios.get('http://localhost:7789/api/uniqueOfficeAddresses');
-      setLocationOptions(response.data);
-    } catch (error) {
-      console.error('Error fetching location options:', error);
-    }
-  };
-  fetchLocationOptions();
-}, []);
+  const [csv, setcsv] = useState([]);
 
+  // Fetching location options from the API on component mount
+  useEffect(() => {
+    const fetchLocationOptions = async () => {
+      try {
+        const response = await axios.get('http://localhost:7789/api/uniqueOfficeAddresses');
+        setLocationOptions(response.data);
+      } catch (error) {
+        console.error('Error fetching location options:', error);
+      }
+    };
+    fetchLocationOptions();
+  }, []);
 
-
-  // Call the fetchFilteredData function whenever searchTerm changes
- 
-
+  // Handling click on location dropdown
   const handleLocationClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
+  // Handling location selection in the dropdown
   const handleLocationClose = (value) => {
     setAnchorEl(null);
     setSelectedLocation(value);
   };
 
+  // Handling page change in pagination
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
   };
 
+  // Handling rows per page change in pagination
   const handleRowsPerPageChange = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
 
+  // Fetching employee data based on selected filters
   const fetchEmployeesData = async () => {
     try {
       const response = await axios.get('http://localhost:7789/api/roshanFilterEmployeeData', {
@@ -82,13 +87,13 @@ useEffect(() => {
       });
       console.log('Data from API:', response.data);
       setEmployeesData(response.data);
-      // setEmployeesData(response.data.emp);
       setIsSearchBarVisible(true);
     } catch (error) {
       console.error('Error fetching employee data:', error);
     }
   };
 
+  // Searching for a specific employee by code
   const searchEmployee = async () => {
     if (!searchEmployeeCode) return;
 
@@ -101,6 +106,7 @@ useEffect(() => {
     }
   };
 
+  // Toggling the expanded view of employee details
   const handleToggle = (empCode) => {
     setEmployeesData((prevEmployeesData) => {
       const updatedEmployeesData = prevEmployeesData.map((employee) =>
@@ -112,34 +118,35 @@ useEffect(() => {
     });
   };
 
+  // Handling search input change and fetching filtered data
   const handleSearch = async (event) => {
     setSearchTerm(event.target.value);
-    if(event.target.value){
-    const response = await axios.get(`http://localhost:7789/api/roshanFilterEmployeeData/${event.target.value}`, {
-      
-      params: { location: selectedLocation, fromDate: fromDate, toDate: toDate },
-    });
+    if (event.target.value) {
+      const response = await axios.get(`http://localhost:7789/api/roshanFilterEmployeeData/${event.target.value}`, {
+        params: { location: selectedLocation, fromDate: fromDate, toDate: toDate },
+      });
 
-    setEmployeesData(response.data);
-    const filterVariable = employeesData.map(entry => ({
-      S_no: entry.S_no,
-      EMPCODE: entry.EMPCODE,
-      Name: entry.Name,
-      Current_Designation: entry.Current_Designation,
-      punchData: entry.punchData.map(punch => ({
+      setEmployeesData(response.data);
+      const filterVariable = employeesData.map(entry => ({
+        S_no: entry.S_no,
+        EMPCODE: entry.EMPCODE,
+        Name: entry.Name,
+        Current_Designation: entry.Current_Designation,
+        punchData: entry.punchData.map(punch => ({
           punchType: punch.punchType,
           punchDateTime: punch.punchDateTime,
           selectedDate: punch.selectedDate
-      }))
-  }));
-  setcsv(filterVariable);
-  }
-  
+        }))
+      }));
+      setcsv(filterVariable);
+    }
+
     console.log(event.target.value);
-    
+
     setPage(0);
   };
 
+  // Resetting all filters and search
   const handleReset = () => {
     setSearchTerm('');
     setFromDate('');
@@ -149,16 +156,18 @@ useEffect(() => {
     setEmployeesData([]);
   };
 
-
+  // Handling page change in employee details expansion
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
+  // Handling rows per page change in employee details expansion
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
 
+  // Component for rendering punch data in each table cell
   const PunchTableCell = ({ punch }) => {
     const getCellStyle = () => {
       if (punch.punchType === 'PunchIn') {
@@ -166,7 +175,6 @@ useEffect(() => {
       } else if (punch.punchType === 'PunchOut') {
         return { backgroundColor: 'lightskyblue' };
       } else {
-        // Add a default style if needed
         return {};
       }
     };
@@ -180,11 +188,13 @@ useEffect(() => {
     );
   };
 
+  // JSX structure for the ManualDashboard component
   return (
     <div>
-      <h1 style={{textAlign:'center'}}>Dashboard</h1>
+      <h1 style={{ textAlign: 'center' }}>Dashboard</h1>
       <div className="filter-controls-container">
         <div className="filter-controls">
+          {/* From Date filter */}
           <label className="labels">
             From Date:
             <TextField
@@ -197,6 +207,7 @@ useEffect(() => {
               inputProps={{ max: new Date().toISOString().split('T')[0] }}
             />
           </label>
+          {/* To Date filter */}
           <label className="labels">
             To Date:
             <TextField
@@ -209,6 +220,7 @@ useEffect(() => {
               inputProps={{ max: new Date().toISOString().split('T')[0] }}
             />
           </label>
+          {/* Location filter */}
           <label className="labels">
             Location:
             <Select
@@ -229,6 +241,7 @@ useEffect(() => {
             </Select>
           </label>
         </div>
+        {/* Buttons for search, reset, and CSV download */}
         <div className="button-container">
           <Button
             variant="contained"
@@ -249,6 +262,7 @@ useEffect(() => {
           <CsvDownloadButton data={csv} style={{ backgroundColor: "#3df26d", color: "white" }} />
         </div>
       </div>
+      {/* Search bar */}
       {isSearchBarVisible && (
         <div className="searchbar">
           <TextField
@@ -264,6 +278,7 @@ useEffect(() => {
           />
         </div>
       )}
+      {/* Table displaying employee data */}
       {employeesData.length > 0 && (
         <TableContainer component={Paper} className="EmployeeTable">
           <Table>
@@ -298,23 +313,26 @@ useEffect(() => {
                       <TableCell>{employee.Current_Designation}</TableCell>
                       <TableCell>{employee.OfficeAddress}</TableCell>
                     </TableRow>
+                    {/* Expanded row displaying punch data */}
                     <TableRow>
                       <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5}>
-                        <Collapse in={employee.open} timeout="auto" unmountOnExit style={{textAlign: 'center'}}>
+                        <Collapse in={employee.open} timeout="auto" unmountOnExit style={{ textAlign: 'center' }}>
                           <Box sx={{ margin: 1 }}>
                             <Typography variant="h6" gutterBottom component="div">
                               Punch Data
                             </Typography>
+                            {/* Table for displaying punch data */}
                             <Table size="small" aria-label="punch-data">
                               <TableHead>
                                 <TableRow>
-                                  <TableCell style={{ textAlign: 'center'}}>S.No</TableCell>
-                                  <TableCell style={{ textAlign: 'center'}}>Punch Type</TableCell>
-                                  <TableCell style={{ textAlign: 'center'}}>Punch Date</TableCell>
-                                  <TableCell style={{ textAlign: 'center'}}>Punch Time</TableCell>
+                                  <TableCell style={{ textAlign: 'center' }}>S.No</TableCell>
+                                  <TableCell style={{ textAlign: 'center' }}>Punch Type</TableCell>
+                                  <TableCell style={{ textAlign: 'center' }}>Punch Date</TableCell>
+                                  <TableCell style={{ textAlign: 'center' }}>Punch Time</TableCell>
                                 </TableRow>
                               </TableHead>
                               <TableBody>
+                                {/* Mapping and rendering each punch data entry */}
                                 {employee.punchData.map((punch, punchIndex) => (
                                   <TableRow key={punch._id}>
                                     <TableCell style={{ textAlign: 'center', border: '1px solid #dddddd' }}>{punchIndex + 1}</TableCell>
@@ -336,6 +354,7 @@ useEffect(() => {
         </TableContainer>
       )}
 
+      {/* Pagination for employee data */}
       {employeesData.length > 0 && (
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
@@ -348,6 +367,7 @@ useEffect(() => {
         />
       )}
 
+      {/* Displaying searched employee details */}
       {searchedEmployee && (
         <div>
           <h3>Employee Details</h3>
@@ -361,4 +381,5 @@ useEffect(() => {
   );
 };
 
+// Exporting the ManualDashboard component as default
 export default ManualDashboard;
