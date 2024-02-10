@@ -1,70 +1,79 @@
-# Getting Started with Create React App
+# Attendance Approval System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Project Description:
 
-## Available Scripts
+The Attendance Approval System is a web application designed to streamline attendance tracking and approval processes. Built with React, the frontend provides user-friendly interfaces for employee login, manual entry, and an admin dashboard. The system allows employees to log in, make manual attendance entries, and enables administrators to view and manage attendance data efficiently.
 
-In the project directory, you can run:
+## Tech Stack:
 
-### `npm start`
+- **React:** Frontend library for building user interfaces.
+- **Material-UI:** React UI framework for designing responsive and visually appealing components.
+- **Bootstrap:** CSS framework for enhancing styling and layout.
+- **React Router:** Navigational components for React applications.
+- **Hot Toast:** Toast notifications library for displaying messages.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Introduction to Each Page:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 1. Employee Login Page:
 
-### `npm test`
+- **Component:** `EmployeeLogin`
+- **Description:** Provides a login form for employees. Upon successful login, users are redirected based on their role (admin or user).
+- **Key Features:**
+  - Username and password entry.
+  - Toggleable password visibility.
+  - Toast notifications for login success or failure.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 2. Navigation Bar Component:
 
-### `npm run build`
+- **Component:** `NavBar`
+- **Description:** A navigation bar providing links to different sections of the web application. Adjusts content based on the user's role (admin or user).
+- **Key Features:**
+  - Dynamic links based on user role.
+  - Logout button for user sessions.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 3. Manual Entry Page:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Component:** `ManualEntry`
+- **Description:** Allows users and administrators to make manual attendance entries. Includes filters, a table of employees, and a modal for entry details.
+- **Key Features:**
+  - Location and employee search filters.
+  - Pagination for employee data.
+  - Responsive design for varying screen sizes.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 4. Manual Dashboard Page:
 
-### `npm run eject`
+- **Component:** `ManualDashboard`
+- **Description:** A dashboard for administrators to view and manage manual attendance entries. Provides filters, a table of employees, and detailed punch data.
+- **Key Features:**
+  - Date range and location filters.
+  - Downloadable CSV file for displayed data.
+  - Expandable rows for detailed punch data.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Points for Optimization:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### General:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **Code Modularization:**
+  - Consider breaking down components into smaller, reusable components for better organization.
+- **Error Handling:**
+  - Enhance error handling for API requests to improve user experience.
+- **Code Duplicates:**
+  - Address code duplication in filtering and formatting logic by creating utility functions.
+- **Accessibility:**
+  - Implement appropriate ARIA attributes and keyboard navigation for accessibility.
+- **Security:**
+  - Review and enhance security practices, especially when dealing with sensitive information such as API tokens.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+## Future Improvements and Takeaways:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **Performance Optimization:**
+  - Optimize API calls by debouncing search functions to prevent unnecessary requests on each keystroke.
+- **Responsive Design Enhancements:**
+  - Continue refining the responsiveness of each component for a seamless user experience on different devices.
+- **Additional Features:**
+  - Explore and implement additional features such as analytics, more detailed reporting, and user preferences.
+- **User Feedback:**
+  - Gather user feedback to identify areas for improvement and prioritize enhancements.
+- **Continuous Learning:**
+  - Stay updated on the latest technologies and best practices in React and web development for ongoing improvements.
